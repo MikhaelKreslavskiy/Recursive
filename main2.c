@@ -74,7 +74,7 @@ int main (int argc, char* argv[])
    
 
 
-   printf("%s\n", my_path);
+   printf("c%s\n", my_path);
    countPlug(my_path);
    find_opt();
 
