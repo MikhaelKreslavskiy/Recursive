@@ -1,0 +1,2 @@
+In file : /home/mikhael/Documents/lab1mkN3248/t.txt
+Odds - 0  ; Evens - 0
