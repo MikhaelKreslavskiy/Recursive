@@ -31,7 +31,7 @@ int clean();
 char* getPath(void);
 int find_opt();
  struct option* long_options;
-
+int path_t=0;
     
 
     
@@ -44,7 +44,8 @@ int main (int argc, char* argv[])
     printf("Lab1 - %s", getenv("LAB1DEBUG"));
 
     char* my_path=getPath();
-
+    path_t=1;
+/*
     for(int i = 0; i < argc -1; i++)
     {
         if (argv[i][0] == '-' && argv[i][1] == 'P')
@@ -72,9 +73,9 @@ int main (int argc, char* argv[])
         }
     }
    
+*/
 
-
-   printf("c%s\n", my_path);
+  /// printf("c%s\n", my_path);
    countPlug(my_path);
    find_opt();
 
@@ -134,6 +135,20 @@ while ((n = getopt_long(argc,argv,"P:AONvh",long_options,&option_index))!=-1)
             }
          case 'P':
            {
+                //// pressP=1;
+                struct stat sb;
+                if (stat(optarg, &sb) == -1)
+                    perror("stat() for -P");
+                if ((sb.st_mode & S_IFMT) != S_IFDIR)
+                   {
+                     fprintf(stderr, "Аргумент -P не каталог");
+                        goto END;
+                    }
+                else
+                {
+                    my_path=optarg;
+                    path_t=0;
+                }
                break;
             }
             case '?':
@@ -170,10 +185,11 @@ while ((n = getopt_long(argc,argv,"P:AONvh",long_options,&option_index))!=-1)
    
     countFile(my_path);
     END:
-   
+   if(path_t==1){
     free(my_path);
+   }
     clean();
-     my_path=NULL;
+     ///my_path=NULL;
     
     return 0;
 }
