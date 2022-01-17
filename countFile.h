@@ -24,7 +24,7 @@ void countFile( char* path)
      
      DIR *dir = opendir(path);
     struct dirent *ent;
-    
+    ////char *s=NULL;
     
     if (dir == NULL)
     {
@@ -38,7 +38,7 @@ void countFile( char* path)
             continue;
         struct stat sb;
         
-        char *s = concat_f(path, ent->d_name);
+       char* s = concat_f(path, ent->d_name);
        
         if (stat(s, &sb) == -1)
         {
@@ -51,17 +51,17 @@ void countFile( char* path)
              
             countFile(s);
             } 
-            
+            free(s);
             if(S_ISREG(sb.st_mode))
          {
                  
                  int res=-2;
                  int min_or=0,min_and=1; 
-                
+                char* str= concat_f(path,ent->d_name);
              for(int i=0;i<number_long_opt;i++)
             {   
                                  
-                                
+                              
                  if(mas[i]==1){
                 struct option *in_opt = (struct option*)malloc(sizeof(struct option));
                 size_t leno = 0;
@@ -70,13 +70,14 @@ void countFile( char* path)
                 in_opt[leno] = long_options[i];
                 leno++;
                                
-                void* hand= dlsym(array_need_plugins[i], "plugin_process_file");
+              void* hand= dlsym(array_need_plugins[i], "plugin_process_file");
                                  
                 typedef int(*plugin_process)(const char* fname,struct option in_opts[],size_t len);
                 plugin_process get_process= (plugin_process)hand;
                                  
-                res=get_process(s, in_opt, 1);
-                                
+                res=get_process(str, in_opt, 1);
+                
+                  /// free(hand);             
 
                             if(res==-1)
                                { 
@@ -87,6 +88,7 @@ void countFile( char* path)
                 
                                 }
                                 free(in_opt);
+                                
                                 if(res==0)
                                 {
                                      min_or = 1 + min_or;
@@ -99,16 +101,18 @@ void countFile( char* path)
 
                         }
                           
-            }   
+                   }   
          
             ///if((AND==0)&&(OR==0)&&(res==0)) printf("%s\n", s);
              if((AND==1)&&(NOT==0))
             {  
                 if(min_and==1)
                 {
-                printf(" %s\n", s);
+                printf(" %s\n", str);
+                
                 
                 }
+                free(str);
                 continue;
               ///  break;
             }
@@ -117,9 +121,11 @@ void countFile( char* path)
                 if(min_or==1)
                 {
 
-                printf(" %s\n", s);
+                printf(" %s\n", str);
+                
                
                 }
+                free(str);
 
                 continue;
                 
@@ -129,9 +135,11 @@ void countFile( char* path)
             {
                 if(min_or==0)
                 {
-                    printf(" %s\n", s);
+                    printf(" %s\n", str);
+                   
                    
                 }
+                 free(str);
                 continue;
             }
            
@@ -139,18 +147,23 @@ void countFile( char* path)
             {
                 if(min_and==0)
                 {
-                    printf("%s\n", s);
+                    printf("%s\n", str);
+                    
                   
                 }
+                free(str);
                 continue;
             }
+            free(str);
         }
+        
          }
          
                
     
     
 closedir(dir);
+///free(s);
 
 
 }
@@ -164,16 +177,16 @@ char* concat_f(char *s1, char *s2) {
         char *result = (char*) malloc(strlen(s1) + strlen(s2) + 2);
 
         if (!result) {
-            if(getenv("LAB1DEBUG"))
-            {
+          ///  if(getenv("LAB1DEBUG"))
+          ///  {
             fprintf(stderr, "malloc() failed: insufficient memory!\n");
             return NULL;
-            }
+           /// }
         }
 
         memcpy(result, s1, len1);
         memcpy(result + len1, "/", 1);
-        memcpy(result + len1 +1, s2, len2 + 1);    
+        memcpy(result + len1 +1, s2, len2 + 1);  
 
         return result;
     }

@@ -189,7 +189,7 @@ while ((n = getopt_long(argc,argv,"P:AONvh",long_options,&option_index))!=-1)
     free(my_path);
    }
     clean();
-     ///my_path=NULL;
+     my_path=NULL;
     
     return 0;
 }

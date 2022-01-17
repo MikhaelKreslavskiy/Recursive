@@ -96,6 +96,7 @@ void countPlug(char* path) {
                     printf("Цель плагина: %s\n", ppi.plugin_purpose);
                     printf("\n");
                     free(dimom_str);
+                
                     nplug++;
                     if(res==-1)
                     {
