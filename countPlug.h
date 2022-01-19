@@ -14,12 +14,9 @@
 extern int count_of_plugs;
 extern void** array_of_plugins;
 
-///char finLongOptions;//массив имен опций
- ///int len_of_LongO;
+
  extern int nplug;
- ///void **dir_names_plugins;
- ///struct plugin_info ppi;
- ////struct plugin_info* p_ppi=&ppi;
+ 
 char* concat(char *s1, char *s2);
 
 void countPlug(char* path) {
@@ -59,7 +56,7 @@ void countPlug(char* path) {
                    
 
                     
-                   ///free(str);
+                   
                      char* dimom_str= concat(path, ent->d_name);
                    
                     hand=dlopen(dimom_str,RTLD_LAZY);
