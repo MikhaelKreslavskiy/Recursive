@@ -44,27 +44,7 @@ int plugin_get_info(struct plugin_info* ppi)
 
 
     }
-    /*
-
-char* concat(const char *s1, char *s2) {
-
-        size_t len1 = strlen(s1);
-        size_t len2 = strlen(s2);                      
-
-        char *result = (char*) malloc(strlen(s1) + strlen(s2) + 2);
-
-        if (!result) {
-            fprintf(stderr, "malloc() failed: insufficient memory!\n");
-            return NULL;
-        }
-
-        memcpy(result, s1, len1);
-        memcpy(result + len1, "/", 1);
-        memcpy(result + len1 +1, s2, len2 + 1);    
-
-        return result;
-    }
-*/
+  
 int plugin_process_file( const char* fname, struct option in_opts[], size_t in_opts_len)
 
 
@@ -119,7 +99,7 @@ int plugin_process_file( const char* fname, struct option in_opts[], size_t in_o
     
 if(strcmp("odds", (char*)in_opts->flag)==0)
 {
-     ///free(file);
+     
     if(odds> evens)
     {
        
@@ -143,7 +123,7 @@ if(strcmp("odds", (char*)in_opts->flag)==0)
 
 if(strcmp("evens", (char*)in_opts->flag)==0)
 {
-    //// free(file);
+   
     if(odds< evens)
     {
        
