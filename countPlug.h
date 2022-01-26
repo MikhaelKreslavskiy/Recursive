@@ -88,9 +88,14 @@ void countPlug(char* path) {
                      plugin_info_i get_info= (plugin_info_i)hand_info;
                     
                     int res = get_info(&ppi); 
-                    printf("Найден плагин: %s\n", dimom_str);
+                    printf("Найден плагин!: %s\n", dimom_str);
                     printf("Автор :%s\n", ppi.plugin_author);
                     printf("Цель плагина: %s\n", ppi.plugin_purpose);
+                    printf("fdf@!"); 
+                    /// <summary>
+                    /// 
+                    /// </summary>
+                    /// <param name="path"></param>
                     printf("\n");
                     free(dimom_str);
                 
