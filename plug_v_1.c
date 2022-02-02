@@ -99,7 +99,7 @@ int plugin_process_file( const char* fname, struct option in_opts[], size_t in_o
     
 if(strcmp("odds", (char*)in_opts->flag)==0)
 {
-     
+    /// сравнение
     if(odds> evens)
     {
        
